@@ -1,0 +1,22 @@
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.img-card-top {
+    height: 300px;
+}
+
+.livros {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    overflow: hidden;
+    padding: 5px;
+}
+
+.card-body {
+    justify-content: flex-start;
+}

@@ -9,7 +9,7 @@ export class GoogleApiService {
 
   constructor(private http: HttpClient) { }
 
-  searchBooks(search: string) {
+  searchBooks(search: string): any {
     const googleApiSearch = (`https://www.googleapis.com/books/v1/volumes?q=${search}`);
     return this.http.get(googleApiSearch).pipe(map(response => response))
   }

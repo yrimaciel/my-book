@@ -10,11 +10,17 @@ export class SearchComponent implements OnInit {
 
   constructor(private api: GoogleApiService) { }
 
+  books = []
+
   ngOnInit() {
+    this.api.searchBooks('')
   }
 
-  findBooks(search: any) {
-    console.log(search)
+  findBooks(search) {
+    this.api.searchBooks(search).subscribe((response) => {
+      this.books = response.items;
+      console.log(this.books)
+    })
   }
 
 }

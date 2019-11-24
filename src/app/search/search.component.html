@@ -1,6 +1,27 @@
-<div class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" #search type="search" placeholder="Pesquisar" aria-label="Pesquisar" id="search">
-    <button (click)="findBooks(search.value)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+<div class="jumbotron text-center">
+        <div class="container">
+          <h1 class="display-4">Faça sua busca!</h1>
+          <p class="lead">Você pode pesquisar pelo nome do livro ou até do autor.</p>
+        </div>
+
+        <div class="mt-5">
+                <div class="form-inline justify-content-center">
+                    <input class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
+                    <button (click)="findBooks(search.value)" class="btn btn-dark" type="submit">Pesquisar</button>
+                </div>
+        </div>
+
+        <div class="container row mt-4 pb-5 justify-content-center col-md-12">
+            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books">
+                <div class="card d-flex justify-content-center" style="width: 250px; height: 400px;">
+                    <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top img">
+                        <div class="card-body">
+                            <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
+                            <button class="btn btn-sm btn-dark text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button>
+                        </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 
