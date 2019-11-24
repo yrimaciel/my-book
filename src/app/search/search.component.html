@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div class="jumbotron text-center">
         <div class="container">
-          <h1 class="display-4">Faça sua busca!</h1>
-          <p class="lead">Você pode pesquisar pelo nome do livro ou até do autor.</p>
+          <h1 class="display-4 text-light">Faça sua busca!</h1>
+          <p class="lead text-light">Você pode pesquisar pelo nome do livro ou até do autor.</p>
         </div>
 
         <div class="mt-5">
@@ -13,7 +13,7 @@
         </div>
 
         <div class="container row mt-4 pb-5 justify-content-center col-md-12">
-            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books" [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0].identifier]">
+            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books" [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0]?.type]">
                 <div class="card d-flex justify-content-center" *ngIf="book.volumeInfo.imageLinks.smallThumbnail" style="width: 250px; height: 400px;">
                     <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top img">
                         <div class="card-body">

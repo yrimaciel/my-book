@@ -14,14 +14,15 @@ export class BookComponent implements OnInit {
 
   constructor(private api: GoogleApiService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-
+  ngOnInit()  {
     const isbn = this.route.snapshot.params['isbn'];
 
-    this.api.searchBookID(isbn).subscribe((response) => {
-      this.book = response.items[0];
+      this.api.searchBookID(isbn).subscribe((response) => {
+      this.book =  response.items[0];
     })
   }
+
+
 
   addFav(book) {
     const existsOnFavs = this.favs.find(book => book === book);

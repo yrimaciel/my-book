@@ -12,7 +12,7 @@
             <div class="col-lg-12 infos">
             <p *ngIf="book.volumeInfo.authors" class="lead mt-3">Escrito por: <br>{{book.volumeInfo.authors}}</p>
             <p *ngIf="book.volumeInfo.averageRating" class="lead">Avaliação: <br>{{book.volumeInfo.averageRating}} <i class="fa fa-star text-warning"></i></p>
-            <button (click)="addFav(book)" class="mt-2 btn btn-success"><i class="fa fa-star"></i> Adicionar aos Favoritos</button>
+            <button (click)="addFav(book)" class="mt-2 btn btn-success"><i class="fa fa-heart"></i> Adicionar aos Favoritos</button>
             </div>
         </div>
     </div>

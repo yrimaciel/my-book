@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   findBooks(search) {
     this.api.searchBooks(search).subscribe((response) => {
-      this.books = response.items;
+      this.books =  response && response.items;
       console.log(this.books)
     })
   }
