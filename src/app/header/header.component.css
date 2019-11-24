@@ -1,0 +1,27 @@
+@font-face {
+    src: url('../../assets/Righteous-Regular.ttf');
+    font-family: 'Righteous';
+}
+
+.navbar {
+    border-bottom: 4px solid #0083B0;
+}
+
+.navbar-brand {
+    color: #0083B0;
+    font-family: 'Righteous';
+    font-size: 22pt;
+}
+
+.navbar-brand:hover {
+    color: #00B4DB;
+}
+
+.btn {
+    padding: 15px;
+}
+
+.btn:hover {
+    background: linear-gradient(to right, #00B4DB,#0083B0);
+    color: #fafafa;
+}
