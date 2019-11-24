@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchComponent } from '../search/search.component';
-
 
 @Component({
   selector: 'app-home',
@@ -12,9 +10,6 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(SearchComponent)
   }
-
-  
 
 }

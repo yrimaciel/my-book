@@ -6,19 +6,19 @@
         </div>
 
         <div class="mt-5">
-                <div class="form-inline justify-content-center">
-                    <input class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
-                    <button (click)="findBooks(search.value)" class="btn btn-dark" type="submit">Pesquisar</button>
-                </div>
+            <div class="form-inline justify-content-center">
+                <input class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
+                <button (click)="findBooks(search.value)" class="btn btn-dark" type="submit">Pesquisar</button>
+            </div>
         </div>
 
         <div class="container row mt-4 pb-5 justify-content-center col-md-12">
-            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books">
-                <div class="card d-flex justify-content-center" style="width: 250px; height: 400px;">
+            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books" [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0].identifier]">
+                <div class="card d-flex justify-content-center" *ngIf="book.volumeInfo.imageLinks.smallThumbnail" style="width: 250px; height: 400px;">
                     <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top img">
                         <div class="card-body">
                             <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
-                            <button class="btn btn-sm btn-dark text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button>
+                            <a [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0].identifier]"><button class="btn btn-sm btn-primary text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button></a>
                         </div>
                 </div>
             </div>

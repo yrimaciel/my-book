@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<div *ngIf="book">
+
+    <div class="mt-5 jumbotron container">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <img *ngIf="book.volumeInfo.imageLinks.smallThumbnail" src={{book.volumeInfo.imageLinks.smallThumbnail}} id="img" alt="">
+            </div>
+            <h1 class="display-4 mt-5">{{book.volumeInfo.title}}</h1>
+            <p *ngIf="book.volumeInfo.description" class="lead">{{book.volumeInfo.description}}.</p>
+            <div class="col-lg-12 infos">
+            <p *ngIf="book.volumeInfo.authors" class="lead mt-3">Escrito por: <br>{{book.volumeInfo.authors}}</p>
+            <p *ngIf="book.volumeInfo.averageRating" class="lead">Avaliação: <br>{{book.volumeInfo.averageRating}} <i class="fa fa-star text-warning"></i></p>
+            <button (click)="addFav(book)" class="mt-2 btn btn-success"><i class="fa fa-star"></i> Adicionar aos Favoritos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5 jumbotron container justify-content-center" *ngIf="!book">
+        <p class="display-4">Os dados deste livro não foram encontrados.. por favor, volte à pesquisa <a routerLink="/search">aqui</a></p>
+</div>
