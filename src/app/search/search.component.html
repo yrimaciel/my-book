@@ -1,28 +1,57 @@
 <app-header></app-header>
 <div class="jumbotron text-center">
-        <div class="container">
-          <h1 class="display-4 text-light">Faça sua busca!</h1>
-          <p class="lead text-light">Você pode pesquisar pelo nome do livro ou até do autor.</p>
+        <div class="container" *ngIf="!showFavs">
+          <h1 class="display-4 text-light">Faça sua busca</h1>
+          <p class="lead text-light">Pesquise pelo nome do livro ou até mesmo pelo nome do autor! <i class="fa fa-smile-o text-warning"></i></p>
         </div>
+
+        <div class="container" *ngIf="showFavs">
+            <p class="lead text-light">Você pode remover livros do seu menu de favoritos.</p>
+            <p class="lead text-light">Para obter outros livros, volte ao menu de pesquisa! <i class="fa fa-smile-o text-warning"></i> </p>
+          </div>
 
         <div class="mt-5">
             <div class="form-inline justify-content-center">
                 <input class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
-                <button (click)="findBooks(search.value)" class="btn btn-dark" type="submit">Pesquisar</button>
+                <button (click)="findBooks(search.value)" class="btn btn-primary" type="submit" *ngIf="!showFavs">Pesquisar</button>
+                <button (click)="showFav()" *ngIf="!showFavs" class="ml-1 btn btn-light"><i class="fa fa-heart text-danger"></i> Meus favoritos</button>
+                <button (click)="showFav()" *ngIf="showFavs" class="ml-1 btn btn-light"> <strong><< Voltar</strong></button>
             </div>
         </div>
-
-        <div class="container row mt-4 pb-5 justify-content-center col-md-12">
-            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books" [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0]?.type]">
+      
+        <div *ngIf="books && !showFavs" class="container row mt-1 pb-5 justify-content-center col-md-12">
+            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books , let i = index">
                 <div class="card d-flex justify-content-center" *ngIf="book.volumeInfo.imageLinks.smallThumbnail" style="width: 250px; height: 400px;">
-                    <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top img">
-                        <div class="card-body">
-                            <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
-                            <a [routerLink]="['/search', book.volumeInfo.industryIdentifiers[0].identifier]"><button class="btn btn-sm btn-primary text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button></a>
+                    <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
+                        <div class="m-2 text-center">
+                            <button (click)="addFav(book)" class="btn btn-danger btn-sm text-light mb-1"><i class="fa fa-heart text-light"></i> Adicionar aos Favoritos</button><br>
+                            <a href={{book.volumeInfo.infoLink}} target="_blank"><button class="btn btn-sm btn-success text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button></a>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
+      
+            <div *ngIf="showFavs" class="container row mt-3 pb-5 justify-content-center col-md-12">
+              <div class="container col-12 mt-5 mb-3 card-header display-4"><h1 class="text-light"><strong> <i class="fa fa-bookmark text-light"></i> Meus favoritos</strong></h1></div>
+              <div class="card m-2" style="width: 18em;" *ngFor="let fav of favs, let i = index">
+                  <button (click)="removeFav(fav)" class="btn btn-sm btn-danger  mb-2"><strong>REMOVER</strong></button>
+                <img src={{fav.volumeInfo.imageLinks.smallThumbnail}}>
+                <div class="card-body">
+                  <p class="card-text"><strong>{{fav.volumeInfo.title}}</strong></p>
+                  <p class="card-text text-muted" *ngIf="fav.volumeInfo.authors">Autor: {{fav.volumeInfo.authors}}</p>
+                  <p class="card-text text-muted" *ngIf="fav.volumeInfo.publishedDate">Data de publicação: {{fav.volumeInfo.publishedDate}}</p>
+                  <p class="card-text text-muted" *ngIf="fav.volumeInfo.pageCount">Total de Páginas: {{fav.volumeInfo.pageCount}}</p>
+                  <a href={{fav.volumeInfo.previewLink}} target="_blank"><button class="btn btn-primary text-white">Leia a Prévia</button></a>
+                  
+                </div>
+              </div>
+        
+              <!-- array favs.length === 0 -->
+              <span class="mt-5 p-2 bg-primary text-light" *ngIf="favs.length === 0"> <strong> Você não tem nenhum favorito. Por favor, volte à pesquisa.</strong></span>
+            </div>
 </div>
 
 

@@ -11,6 +11,8 @@ export class SearchComponent implements OnInit {
   constructor(private api: GoogleApiService) { }
 
   books = []
+  favs = []
+  showFavs = false;
 
   ngOnInit() {
     this.api.searchBooks('')
@@ -22,5 +24,25 @@ export class SearchComponent implements OnInit {
       console.log(this.books)
     })
   }
+
+  addFav(book: any) {
+    const title = book.volumeInfo.title;
+    const existsOnFavs = this.favs.find(book => book.volumeInfo.title === title);
+
+    if (existsOnFavs) {
+      console.log('este livro existe nos seus favoritos!')
+    } else {
+      this.favs.push(book);
+      console.log(this.favs)
+    }
+}
+
+removeFav(fav: any) {
+  this.favs.splice(fav, 1);
+}
+
+showFav() {
+    this.showFavs = this.showFavs ? false : true;
+}
 
 }

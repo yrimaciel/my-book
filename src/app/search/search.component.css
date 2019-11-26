@@ -21,3 +21,12 @@
 .jumbotron {
     background-color: rgba(0,0,0,.6);
 }
+
+.lead {
+    margin: 0;
+    padding: 0;
+}
+
+.p {
+    font-family: 'Roboto', sans-serif;
+}

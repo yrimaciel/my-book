@@ -17,8 +17,4 @@ export class GoogleApiService {
     return this.http.get(googleApiSearch).pipe(map(response => response))
   }
 
-  searchBookID(isbn: number): any {
-    const googleApiSearchForISBN = (`${this.link}/?q=isbn:${isbn}&maxResults=1&key=${this.googleKey}`)
-    return this.http.get(googleApiSearchForISBN).pipe(map(response => response))
-  }
 }
