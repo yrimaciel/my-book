@@ -5,3 +5,13 @@
 .mybook {
     font-family: 'Righteous', sans-serif;
 }
+
+@media(max-width: 1024px) {
+    h1 {
+        font-size: 32pt;
+    }
+
+    p {
+        font-size: 12pt;
+    }
+}

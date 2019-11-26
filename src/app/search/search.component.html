@@ -12,32 +12,37 @@
 
         <div class="mt-5">
             <div class="form-inline justify-content-center">
-                <input class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
-                <button (click)="findBooks(search.value)" class="btn btn-primary" type="submit" *ngIf="!showFavs">Pesquisar</button>
-                <button (click)="showFav()" *ngIf="!showFavs" class="ml-1 btn btn-light"><i class="fa fa-heart text-danger"></i> Meus favoritos</button>
-                <button (click)="showFav()" *ngIf="showFavs" class="ml-1 btn btn-light"> <strong><< Voltar</strong></button>
+                <input (keyup.enter)="findBooks(search.value)" class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
+                <button type="submit" (click)="findBooks(search.value)" class="btn btn-primary" *ngIf="!showFavs">Pesquisar</button>
+                <button (click)="setFav()" *ngIf="!showFavs" class=" ml-1 btn btn-light"><i class="fa fa-heart text-danger"></i> Meus favoritos</button>
+                <button (click)="setFav()" *ngIf="showFavs" class=" ml-1 btn btn-light"> << Voltar</button>
             </div>
         </div>
       
         <div *ngIf="books && !showFavs" class="container row mt-1 pb-5 justify-content-center col-md-12">
-            <div class="col-sm-12 col-md-6 col-lg-2 ml-1 mt-5 livros" *ngFor="let book of books , let i = index">
+            <div class="col-sm-12 col-md-6 col-lg-4 ml-1 mt-5 livros" *ngFor="let book of books | paginate: { itemsPerPage: count, currentPage: p }">
                 <div class="card d-flex justify-content-center" *ngIf="book.volumeInfo.imageLinks.smallThumbnail" style="width: 250px; height: 400px;">
                     <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top">
                     <div class="card-body">
                         <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
                         <div class="m-2 text-center">
-                            <button (click)="addFav(book)" class="btn btn-danger btn-sm text-light mb-1"><i class="fa fa-heart text-light"></i> Adicionar aos Favoritos</button><br>
                             <a href={{book.volumeInfo.infoLink}} target="_blank"><button class="btn btn-sm btn-success text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button></a>
-                        </div>
+                            <button (click)="addFav(book)" class="btn btn-danger btn-sm text-light mb-1"><i class="fa fa-heart text-light"></i> Adicionar aos Favoritos</button><br>                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="text-center" *ngIf="books.length > 0 && !showFavs">
+            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próxima" class="pagination"></pagination-controls>
+          </div>
+        </div>
       
             <div *ngIf="showFavs" class="container row mt-3 pb-5 justify-content-center col-md-12">
-              <div class="container col-12 mt-5 mb-3 card-header display-4"><h1 class="text-light"><strong> <i class="fa fa-bookmark text-light"></i> Meus favoritos</strong></h1></div>
+              <div class="container col-12 mt-5 mb-3 card-header display-4"><h1 class="text-light"><strong> <i class="fa fa-heart text-danger"></i> Meus favoritos</strong></h1></div>
               <div class="card m-2" style="width: 18em;" *ngFor="let fav of favs, let i = index">
-                  <button (click)="removeFav(fav)" class="btn btn-sm btn-danger  mb-2"><strong>REMOVER</strong></button>
+                  <button (click)="removeFav(fav, i)" class="btn btn-sm btn-danger  mb-2"><strong><i class="fa fa-trash"></i> Remover</strong></button>
                 <img src={{fav.volumeInfo.imageLinks.smallThumbnail}}>
                 <div class="card-body">
                   <p class="card-text"><strong>{{fav.volumeInfo.title}}</strong></p>
@@ -49,8 +54,7 @@
                 </div>
               </div>
         
-              <!-- array favs.length === 0 -->
-              <span class="mt-5 p-2 bg-primary text-light" *ngIf="favs.length === 0"> <strong> Você não tem nenhum favorito. Por favor, volte à pesquisa.</strong></span>
+              <span class="mt-5 p-2 bg-light text-dark" *ngIf="favs.length == 0"> <strong> Seu menu de favoritos está vazio. Por favor, volte à pesquisa <i class="fa fa-hand-o-right"></i> <a class="here" (click)="setFav()" *ngIf="showFavs"> AQUI!</a></strong></span>
             </div>
 </div>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleApiService } from '../service/google-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
@@ -8,21 +9,22 @@ import { GoogleApiService } from '../service/google-api.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private api: GoogleApiService) { }
+  constructor(private api: GoogleApiService, private toastr: ToastrService) { }
 
-  books = []
-  favs = []
+  books = [];
+  favs = [];
   showFavs = false;
+  p = 1;
+  count = 4;
 
   ngOnInit() {
-    this.api.searchBooks('')
+    this.api.searchBooks('');
   }
 
   findBooks(search) {
     this.api.searchBooks(search).subscribe((response) => {
-      this.books =  response && response.items;
-      console.log(this.books)
-    })
+      this.books = response.items;
+    });
   }
 
   addFav(book: any) {
@@ -30,18 +32,20 @@ export class SearchComponent implements OnInit {
     const existsOnFavs = this.favs.find(book => book.volumeInfo.title === title);
 
     if (existsOnFavs) {
-      console.log('este livro existe nos seus favoritos!')
+      this.toastr.warning('Este livro já está inserido aos seus favoritos!');
     } else {
       this.favs.push(book);
-      console.log(this.favs)
+      this.toastr.success(`O livro "${title}" foi adicionado aos seus favoritos!`);
     }
 }
 
-removeFav(fav: any) {
-  this.favs.splice(fav, 1);
+removeFav(fav, i) {
+    const title = fav.volumeInfo.title;
+    this.favs.splice(i, 1);
+    this.toastr.error(`O livro "${title}" foi removido dos seus favoritos!`);
 }
 
-showFav() {
+setFav() {
     this.showFavs = this.showFavs ? false : true;
 }
 
