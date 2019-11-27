@@ -12,7 +12,7 @@
 
         <div class="mt-5">
             <div class="form-inline justify-content-center">
-                <input (keyup.enter)="findBooks(search.value)" class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" id="search" size="30">
+                <input (keyup.enter)="findBooks(search.value)" class="form-control mr-sm-2" #search type="search" placeholder="Nome do livro/autor" aria-label="Pesquisar" size="30">
                 <button type="submit" (click)="findBooks(search.value)" class="btn btn-primary" *ngIf="!showFavs">Pesquisar</button>
                 <button (click)="setFav()" *ngIf="!showFavs" class=" ml-1 btn btn-light"><i class="fa fa-heart text-danger"></i> Meus favoritos</button>
                 <button (click)="setFav()" *ngIf="showFavs" class=" ml-1 btn btn-light"> << Voltar</button>
@@ -20,14 +20,15 @@
         </div>
       
         <div *ngIf="books && !showFavs" class="container row mt-1 pb-5 justify-content-center col-md-12">
-            <div class="col-sm-12 col-md-6 col-lg-4 ml-1 mt-5 livros" *ngFor="let book of books | paginate: { itemsPerPage: count, currentPage: p }">
+            <div class="col-12 col-lg-4 col-xl-2 ml-1 mt-5 livros" *ngFor="let book of books | paginate: { itemsPerPage: count, currentPage: p }, let i = index">
                 <div class="card d-flex justify-content-center" *ngIf="book.volumeInfo.imageLinks.smallThumbnail" style="width: 250px; height: 400px;">
                     <img src={{book.volumeInfo.imageLinks.smallThumbnail}} class="card-img-top">
                     <div class="card-body">
                         <p class="card-text"><strong>{{book.volumeInfo.title}}</strong></p>
                         <div class="m-2 text-center">
                             <a href={{book.volumeInfo.infoLink}} target="_blank"><button class="btn btn-sm btn-success text-light mb-1"><i class="fa fa-info text-light"></i> Ver Detalhes</button></a>
-                            <button (click)="addFav(book)" class="btn btn-danger btn-sm text-light mb-1"><i class="fa fa-heart text-light"></i> Adicionar aos Favoritos</button><br>                        </div>
+                            <button (click)="addFav(book)" class="btn btn-danger btn-sm text-light mb-1"><i class="fa fa-heart text-light"></i> Adicionar aos Favoritos</button><br>                        
+                        </div>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   count = 4;
 
   ngOnInit() {
-    this.api.searchBooks('');
+    this.api.searchBooks('HELLO');
   }
 
   findBooks(search) {
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
     }
 }
 
-removeFav(fav, i) {
+removeFav(fav: any, i: number) {
     const title = fav.volumeInfo.title;
     this.favs.splice(i, 1);
     this.toastr.error(`O livro "${title}" foi removido dos seus favoritos!`);
